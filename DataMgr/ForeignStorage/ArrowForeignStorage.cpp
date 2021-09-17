@@ -925,13 +925,12 @@ static std::shared_ptr<arrow::DataType> getArrowImportType(const SQLTypeInfo typ
       return decimal(type.get_precision(), type.get_scale());
     case kTIME:
       return time32(TimeUnit::SECOND);
-    case kDATE: {
+    case kDATE: 
       #ifdef HAVE_CUDA
         return arrow::date64();
       #else
         return arrow::date32();
       #endif
-    }
     case kTIMESTAMP:
       switch (type.get_precision()) {
         case 0:
