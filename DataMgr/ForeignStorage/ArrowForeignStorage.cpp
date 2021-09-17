@@ -776,7 +776,7 @@ static SQLTypeInfo getOmnisciType(const arrow::DataType& type) {
       return SQLTypeInfo(kBOOLEAN, false);
     case Type::FLOAT:
       return SQLTypeInfo(kFLOAT, false);
-    case Type::DATE32:
+    case Type::DATE32: case Type::DATE64:
       return SQLTypeInfo(kDATE, false);
     case Type::DOUBLE:
       return SQLTypeInfo(kDOUBLE, false);
@@ -931,11 +931,6 @@ static std::shared_ptr<arrow::DataType> getArrowImportType(const SQLTypeInfo typ
         return arrow::date32();
       #endif
     }
-    // case kDATE:
-    // TODO(wamsi) : Remove date64() once date32() support is added in cuDF. date32()
-    // Currently support for date32() is missing in cuDF.Hence, if client requests for
-    // date on GPU, return date64() for the time being, till support is added.
-    // return device_type_ == ExecutorDeviceType::GPU ? date64() : date32();
     case kTIMESTAMP:
       switch (type.get_precision()) {
         case 0:
