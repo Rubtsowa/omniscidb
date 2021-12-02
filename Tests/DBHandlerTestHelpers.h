@@ -137,7 +137,10 @@ class AssertValueEqualsVisitor : public boost::static_visitor<> {
     if (type == TDatumType::type::TIMESTAMP) {
       return kTIMESTAMP;
     }
-    if (type == TDatumType::type::DATE) {
+    if (type == TDatumType::type::DATE32) {
+      return kDATE;
+    }
+    if (type == TDatumType::type::DATE64) {
       return kDATE;
     }
     throw std::runtime_error{"Unexpected type TDatumType::type : " +
