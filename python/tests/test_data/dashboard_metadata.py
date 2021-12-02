@@ -225,17 +225,7 @@ old_dashboard_state = {
                     },
                     {
                         "table": "test_data_no_nulls_ipc",
-                        "type": "DATE32",
-                        "precision": 0,
-                        "is_array": False,
-                        "is_dict": False,
-                        "name_is_ambiguous": False,
-                        "label": "date_",
-                        "value": "date_"
-                    },
-                    {
-                        "table": "test_data_no_nulls_ipc",
-                        "type": "DATE64",
+                        "type": "DATE",
                         "precision": 0,
                         "is_array": False,
                         "is_dict": False,
