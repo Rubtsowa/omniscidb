@@ -1,14 +1,11 @@
-import sys
 import pytest
 import pyarrow as pa
 import pandas as pd
 import numpy as np
 import omniscidbe as dbe
 import ctypes
-from unittest import mock
 ctypes._dlopen('libDBEngine.so', ctypes.RTLD_GLOBAL)
 
-sys.setdlopenflags(1 | 256)
 
 def test_init():
     global engine
