@@ -36,10 +36,8 @@ def test_date(date):
     assert batch
 
 
-def test_arrow_schema_convertion():
-    arrow_schema = pa.schema({'string': pa.string(), 'int8': pa.int8(), 'int16': pa.int16(), 'int32': pa.int32(), 'int64': pa.int64(), 'float': pa.float32(), 'double': pa.float64(), 'bool': pa.bool_(), 'timestamp_s': pa.timestamp('s'), 'timestamp_ns': pa.timestamp('ns')})
-    df = pd.DataFrame({'string': list('abcdefghij'), 'int8': np.random.randint(0, 100, size=(10,)), 'int16': np.random.randint(0, 100, size=(10,)), 'int32': np.random.randint(0, 100, size=(10,)), 'int64': np.random.randint(0, 100, size=(10,)), 'float': np.random.randint(0, 100, size=(10,)), 'double': np.random.randint(0, 100, size=(10,)), 'bool': np.random.randint(0, 100, size=(10,)), 'timestamp_s': np.random.randint(0, 100, size=(10,)), 'timestamp_ns': np.random.randint(0, 100, size=(10,))})
-    table = pa.Table.from_pandas(df, schema=arrow_schema)
+def test_arrow_date32_date64():
+    table = pa.Table.from_pydict({"date32": [1, 2, 3, 4], "date64": [1, 2, 3, 4]}, schema=pa.schema({"date32": pa.date32(), "date64": pa.date64()}))
     assert table
     test_name = "test_table"
     engine.importArrowTable(test_name, table)
