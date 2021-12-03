@@ -1,8 +1,6 @@
 import sys
 import pytest
 import pyarrow as pa
-import pandas as pd
-import numpy as np
 import omniscidbe as dbe
 import ctypes
 ctypes._dlopen('libDBEngine.so', ctypes.RTLD_GLOBAL)
@@ -28,18 +26,6 @@ def test_date(date):
     table = pa.Table.from_pydict({"a": [1, 2, 3, 4]}, schema=pa.schema({"a": date[0]()}))
     assert table
     test_name = "test_table_{}".format(date[1])
-    engine.importArrowTable(test_name, table)
-    assert bool(engine.closed) == False
-    cursor = engine.executeDML("select * from {}".format(test_name))
-    assert cursor
-    batch = cursor.getArrowRecordBatch()
-    assert batch
-
-
-def test_arrow_date32_date64():
-    table = pa.Table.from_pydict({"date32": [1, 2, 3, 4], "date64": [1, 2, 3, 4]}, schema=pa.schema({"date32": pa.date32(), "date64": pa.date64()}))
-    assert table
-    test_name = "test_table"
     engine.importArrowTable(test_name, table)
     assert bool(engine.closed) == False
     cursor = engine.executeDML("select * from {}".format(test_name))
